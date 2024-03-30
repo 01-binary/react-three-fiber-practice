@@ -29,6 +29,7 @@ const ThreeElement = () => {
         ]}
       >
         <boxGeometry />
+        <sphereGeometry />
         <meshStandardMaterial color={'red'} />
       </mesh>
     </>
