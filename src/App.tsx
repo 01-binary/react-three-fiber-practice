@@ -1,5 +1,14 @@
+import { Canvas } from '@react-three/fiber';
+import ThreeElement from './ThreeElement';
+
 function App() {
-  return <>HI</>;
+  return (
+    <>
+      <Canvas>
+        <ThreeElement />
+      </Canvas>
+    </>
+  );
 }
 
 export default App;
