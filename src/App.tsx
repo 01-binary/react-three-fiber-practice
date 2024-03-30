@@ -4,7 +4,15 @@ import ThreeElement from './ThreeElement';
 function App() {
   return (
     <>
-      <Canvas>
+      <Canvas
+        // orthographic
+        camera={{
+          near: 1,
+          far: 20,
+          fov: 75,
+          position: [0, 5, 5],
+        }}
+      >
         <ThreeElement />
       </Canvas>
     </>

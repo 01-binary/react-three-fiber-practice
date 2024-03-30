@@ -8,8 +8,8 @@ const ThreeElement = () => {
 
   useFrame((state, delta) => {
     boxRef.current!.rotation.x += delta;
-    boxRef.current!.position.y -= 0.01;
-    boxRef.current!.scale.z += 0.01;
+    // boxRef.current!.position.y -= 0.01;
+    // boxRef.current!.scale.z += 0.01;
 
     // console.log(boxRef.current);
     // console.log(state, delta);
