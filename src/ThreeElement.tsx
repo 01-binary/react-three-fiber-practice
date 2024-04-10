@@ -5,6 +5,7 @@ import { useControls } from 'leva';
 
 const ThreeElement = () => {
   const boxRef = useRef<Three.Mesh>(null);
+  const groupRef = useRef<Three.Group>(null);
   const { size, gl, scene, camera } = useThree();
 
   const box = useControls({
@@ -17,25 +18,56 @@ const ThreeElement = () => {
     // boxRef.current!.scale.z += 0.01;
     // console.log(boxRef.current);
     // console.log(state, delta);
+    scene.rotation.x += 0.01;
+    groupRef.current!.rotation.x += delta;
   });
-
-  console.log(size);
 
   return (
     <>
       <directionalLight position={[5, 5, 5]} />
-      <mesh
-        ref={boxRef}
-        rotation={[
-          Three.MathUtils.degToRad(45),
-          Three.MathUtils.degToRad(box.rotation),
-          0,
-        ]}
-      >
-        <boxGeometry />
-        {/* <sphereGeometry /> */}
-        <meshStandardMaterial color={'red'} />
-      </mesh>
+      <group position={[0, 0, 0]} ref={groupRef}>
+        <axesHelper args={[5]} />
+        <mesh
+          ref={boxRef}
+          position={[0, 0, 0]}
+          scale={[1, 1, 1]}
+          rotation={[
+            Three.MathUtils.degToRad(0),
+            Three.MathUtils.degToRad(0),
+            Three.MathUtils.degToRad(0),
+          ]}
+        >
+          <boxGeometry />
+          <meshStandardMaterial color={'red'} />
+        </mesh>
+        <mesh
+          ref={boxRef}
+          position={[0, 2, 0]}
+          scale={[1, 1, 1]}
+          rotation={[
+            Three.MathUtils.degToRad(0),
+            Three.MathUtils.degToRad(0),
+            Three.MathUtils.degToRad(0),
+          ]}
+        >
+          <boxGeometry />
+          <meshStandardMaterial color={'green'} />
+        </mesh>
+        <mesh
+          ref={boxRef}
+          position={[2, 0, 0]}
+          scale={[1, 1, 1]}
+          rotation={[
+            Three.MathUtils.degToRad(0),
+            Three.MathUtils.degToRad(0),
+            Three.MathUtils.degToRad(0),
+          ]}
+        >
+          <axesHelper args={[3]} />
+          <boxGeometry />
+          <meshStandardMaterial color={'blue'} />
+        </mesh>
+      </group>
     </>
   );
 };
