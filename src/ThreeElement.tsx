@@ -1,13 +1,15 @@
 import { useThree, useFrame } from '@react-three/fiber';
-import { useRef } from 'react';
-import * as Three from 'three';
 import { useControls } from 'leva';
-import { Box, Cone, Sphere } from '@react-three/drei';
+import { useEffect, useRef } from 'react';
+import * as Three from 'three';
 
 const ThreeElement = () => {
-  const boxRef = useRef<Three.Mesh>(null);
   const { size, gl, scene, camera } = useThree();
-
+  const boxRef = useRef<Three.Mesh>(null);
+  const boxCopyRef = useRef<Three.Mesh>(null);
+  const boxControl = useControls({
+    width: { value: 1, min: 0.1, max: 10, step: 0.1 },
+  });
   useFrame((state, delta) => {
     // boxRef.current!.rotation.x += delta;
     // boxRef.current!.position.y -= 0.01;
@@ -16,18 +18,21 @@ const ThreeElement = () => {
     // console.log(state, delta);
   });
 
+  useEffect(() => {
+    boxCopyRef.current.geometry = boxRef.current?.geometry;
+  }, [boxControl.width]);
+
   return (
     <>
       <directionalLight position={[5, 5, 5]} />
-      <Sphere position={[2, 0, 0]}></Sphere>
-      <Cone></Cone>
-      <Box position={[-2, 0, 0]}>
+      <mesh ref={boxRef} position={[0, 0, 0]}>
+        <boxGeometry args={[boxControl.width, 2, 2, 2, 2, 2]} />
+        <meshStandardMaterial wireframe />
+      </mesh>
+
+      <mesh ref={boxCopyRef}>
         <meshStandardMaterial color={'red'} />
-      </Box>
-      {/* <mesh ref={boxRef} position={[0, 0, 0]}>
-        <boxGeometry />
-        <meshStandardMaterial color={'red'} />
-      </mesh> */}
+      </mesh>
     </>
   );
 };
