@@ -10,6 +10,9 @@ const ThreeElement = () => {
   const boxControl = useControls({
     width: { value: 1, min: 0.1, max: 10, step: 0.1 },
   });
+  const circleControl = useControls({
+    radius: { value: 1, min: 0.1, max: 10, step: 0.1 },
+  });
   useFrame((state, delta) => {
     // boxRef.current!.rotation.x += delta;
     // boxRef.current!.position.y -= 0.01;
@@ -20,13 +23,14 @@ const ThreeElement = () => {
 
   useEffect(() => {
     boxCopyRef.current.geometry = boxRef.current?.geometry;
-  }, [boxControl.width]);
+  }, [circleControl]);
 
   return (
     <>
       <directionalLight position={[5, 5, 5]} />
       <mesh ref={boxRef} position={[0, 0, 0]}>
-        <boxGeometry args={[boxControl.width, 2, 2, 2, 2, 2]} />
+        <circleGeometry args={[circleControl.radius, 32, 0, Math.PI * 2]} />
+        {/* <boxGeometry args={[boxControl.width, 2, 2, 2, 2, 2]} /> */}
         <meshStandardMaterial wireframe />
       </mesh>
 
