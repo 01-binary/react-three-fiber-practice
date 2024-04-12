@@ -4,44 +4,75 @@ import { useEffect, useRef } from "react";
 import * as Three from "three";
 
 const ThreeElement = () => {
+  const meshRef = useRef<Three.Mesh>(null);
+  const groupRef = useRef<Three.Group>(null);
+
   useFrame((state, delta) => {});
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    for(let i=0; i<groupRef.current.children.length; i++) {
+      const mesh = groupRef.current.children[i] as Three.Mesh;
+      mesh.geometry = meshRef.current.geometry;
+      mesh.position.x = i*2;
+    }
+  }, []);
 
   return (
     <>
       <directionalLight position={[5, 5, 5]} intensity={1} />
-      <mesh position={[0, 0, 0]}>
-        <boxGeometry />
-        <meshBasicMaterial wireframe color={"red"} />
+      <mesh ref={meshRef} position={[0, 0, 0]}>
+        <sphereGeometry args={[1,32,16]} />
+        <meshBasicMaterial color={"green"} visible={false} />
       </mesh>
-      <mesh position={[2, 0, 0]}>
-        <boxGeometry />
-        <meshBasicMaterial
-          color={"red"}
-          visible={true}
-          transparent={true}
-          opacity={1}
-          side={Three.FrontSide}
-          alphaTest={0.5}
-          depthTest={true}
-          depthWrite={true}
-        />
-      </mesh>
-      <mesh position={[4, 0, 0]}>
-        <boxGeometry />
-        <meshLambertMaterial
-          color={"red"}
-          visible={true}
-          transparent={true}
-          opacity={1}
-          side={Three.FrontSide}
-          alphaTest={0.5}
-          depthTest={true}
-          depthWrite={true}
-          emissive={"blue"}
-        />
-      </mesh>
+      <group ref={groupRef}>
+        <mesh>
+          <meshBasicMaterial color='green' wireframe />
+        </mesh>
+        <mesh>
+          <meshBasicMaterial
+            color={"red"}
+            visible={true}
+            transparent={true}
+            opacity={1}
+            side={Three.FrontSide}
+            alphaTest={0.5}
+            depthTest={true}
+            depthWrite={true}
+          />
+        </mesh>
+        <mesh>
+          <meshLambertMaterial
+            color={"red"}
+            visible={true}
+            transparent={true}
+            opacity={1}
+            side={Three.FrontSide}
+            alphaTest={0.5}
+            depthTest={true}
+            depthWrite={true}
+            emissive={"black"}
+          />
+        </mesh>
+        <mesh>
+          <meshPhongMaterial
+            color={"red"}
+            visible={true}
+            transparent={true}
+            opacity={1}
+            side={Three.FrontSide}
+            alphaTest={0.5}
+            depthTest={true}
+            depthWrite={true}
+            emissive={"black"}
+            specular={'#fff'}
+            shininess={30}
+            flatShading={true}
+          />
+        </mesh>
+        <mesh>
+          <meshNormalMaterial />
+        </mesh>
+      </group>
     </>
   );
 };
