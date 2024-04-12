@@ -4,39 +4,21 @@ import { useEffect, useRef } from 'react';
 import * as Three from 'three';
 
 const ThreeElement = () => {
-  const { size, gl, scene, camera } = useThree();
-  const boxRef = useRef<Three.Mesh>(null);
-  const boxCopyRef = useRef<Three.Mesh>(null);
-  const boxControl = useControls({
-    width: { value: 1, min: 0.1, max: 10, step: 0.1 },
-  });
-  const circleControl = useControls({
-    radius: { value: 1, min: 0.1, max: 10, step: 0.1 },
-  });
   useFrame((state, delta) => {
-    // boxRef.current!.rotation.x += delta;
-    // boxRef.current!.position.y -= 0.01;
-    // boxRef.current!.scale.z += 0.01;
-    // console.log(boxRef.current);
-    // console.log(state, delta);
+  
   });
 
   useEffect(() => {
-    boxCopyRef.current.geometry = boxRef.current?.geometry;
-  }, [circleControl]);
+  }, []);
 
   return (
     <>
       <directionalLight position={[5, 5, 5]} />
-      <mesh ref={boxRef} position={[0, 0, 0]}>
-        <circleGeometry args={[circleControl.radius, 32, 0, Math.PI * 2]} />
-        {/* <boxGeometry args={[boxControl.width, 2, 2, 2, 2, 2]} /> */}
-        <meshStandardMaterial wireframe />
+      <mesh  position={[0, 0, 0]}>
+        <boxGeometry />
+        <meshBasicMaterial />
       </mesh>
 
-      <mesh ref={boxCopyRef}>
-        <meshStandardMaterial color={'red'} />
-      </mesh>
     </>
   );
 };
