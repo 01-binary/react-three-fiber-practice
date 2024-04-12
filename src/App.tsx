@@ -18,8 +18,8 @@ function App() {
         {/* Math.PI = 180 */}
         <color attach="background" args={['white']} />
         <OrbitControls
-          minAzimuthAngle={-Math.PI / 4}
-          maxAzimuthAngle={Math.PI / 4}
+          // minAzimuthAngle={-Math.PI / 4}
+          // maxAzimuthAngle={Math.PI / 4}
         />
         <axesHelper args={[6]} />
         <gridHelper args={[10, 10]} />
