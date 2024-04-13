@@ -9,17 +9,17 @@ function App() {
       <Canvas
         // orthographic
         camera={{
-          near: 1,
-          far: 100,
-          fov: 75,
+          // near: 1,
+          // far: 100,
+          // fov: 75,
           position: [5, 5, 5],
         }}
       >
         {/* Math.PI = 180 */}
         <color attach="background" args={['white']} />
         <OrbitControls
-          // minAzimuthAngle={-Math.PI / 4}
-          // maxAzimuthAngle={Math.PI / 4}
+        // minAzimuthAngle={-Math.PI / 4}
+        // maxAzimuthAngle={Math.PI / 4}
         />
         <axesHelper args={[6]} />
         <gridHelper args={[10, 10]} />
