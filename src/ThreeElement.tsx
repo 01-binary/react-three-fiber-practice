@@ -1,3 +1,4 @@
+import { useTexture } from '@react-three/drei';
 import { useThree, useFrame } from '@react-three/fiber';
 import { useControls } from 'leva';
 import { useEffect, useRef } from 'react';
@@ -10,13 +11,19 @@ const ThreeElement = () => {
   const controls = useControls({
     thickness: { value: 1, min: 0, max: 10, step: 0.1 },
   });
+  const matcap = useTexture('./asd.jpeg');
   useFrame((state, delta) => {});
 
   useEffect(() => {
-    for (let i = 0; i < groupRef.current.children.length; i++) {
+    const len = groupRef.current.children.length;
+    for (let i = 0; i < len; i++) {
       const mesh = groupRef.current.children[i] as Three.Mesh;
       mesh.geometry = meshRef.current.geometry;
-      mesh.position.x = i * 2 - 10;
+      mesh.position.x = (i % (len / 2)) * 2 - 4;
+      mesh.position.z = 0;
+      if (i >= len / 2) {
+        mesh.position.z = 2;
+      }
     }
   }, []);
 
@@ -114,6 +121,12 @@ const ThreeElement = () => {
         </mesh>
         <mesh>
           <meshDepthMaterial />
+        </mesh>
+        <mesh>
+          <meshMatcapMaterial matcap={matcap} />
+        </mesh>
+        <mesh>
+          <meshToonMaterial />
         </mesh>
       </group>
     </>
