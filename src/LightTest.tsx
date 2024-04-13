@@ -1,4 +1,4 @@
-import { useHelper, useTexture } from '@react-three/drei';
+import { useHelper, useTexture, Environment } from '@react-three/drei';
 import { useThree, useFrame } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import * as Three from 'three';
@@ -43,14 +43,15 @@ const LightTest = () => {
         intensity={10}
         distance={5}
       /> */}
-      <spotLight
+      {/* <spotLight
         color={'white'}
         position={[0, 5, 0]}
         intensity={300}
         distance={50}
         ref={sLight}
         angle={Three.MathUtils.degToRad(30)}
-      />
+      /> */}
+      <Environment files={'./hdr.hdr'} background blur={0.1} />
       <mesh rotation-x={[Three.MathUtils.degToRad(-90)]} position-y={-1}>
         <planeGeometry args={[15, 15]} />
         <meshStandardMaterial color={'#020059'} side={Three.DoubleSide} />
