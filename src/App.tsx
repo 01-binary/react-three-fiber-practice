@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <Canvas
-        // orthographic
+        shadows
         camera={{
           // near: 1,
           // far: 100,

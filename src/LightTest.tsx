@@ -32,6 +32,8 @@ const LightTest = () => {
       {/* <ambientLight color={'blue'} intensity={0.5} /> */}
       {/* <hemisphereLight args={['blue', 'yellow', 5]} /> */}
       {/* <directionalLight
+        castShadow
+        shadow-mapSize={[512, 512]}
         position={[0, 5, 0]}
         intensity={5}
         ref={dLight}
@@ -42,17 +44,25 @@ const LightTest = () => {
         position={[0, 0, 2]}
         intensity={10}
         distance={5}
+        castShadow
+        shadow-mapSize={[512, 512]}
       /> */}
-      {/* <spotLight
+      <spotLight
         color={'white'}
         position={[0, 5, 0]}
         intensity={300}
         distance={50}
         ref={sLight}
         angle={Three.MathUtils.degToRad(30)}
-      /> */}
-      <Environment files={'./hdr.hdr'} background blur={0.1} />
-      <mesh rotation-x={[Three.MathUtils.degToRad(-90)]} position-y={-1}>
+        castShadow
+        shadow-mapSize={[512, 512]}
+      />
+      {/* <Environment files={'./hdr.hdr'} background blur={0.1} /> */}
+      <mesh
+        rotation-x={[Three.MathUtils.degToRad(-90)]}
+        position-y={-1}
+        receiveShadow
+      >
         <planeGeometry args={[15, 15]} />
         <meshStandardMaterial color={'#020059'} side={Three.DoubleSide} />
       </mesh>
@@ -61,7 +71,7 @@ const LightTest = () => {
         <meshBasicMaterial color={'green'} visible={false} />
       </mesh>
       <group ref={groupRef}>
-        <mesh>
+        <mesh castShadow receiveShadow>
           <meshLambertMaterial
             color={'red'}
             visible={true}
@@ -74,7 +84,7 @@ const LightTest = () => {
             emissive={'black'}
           />
         </mesh>
-        <mesh>
+        <mesh castShadow receiveShadow>
           <meshPhongMaterial
             color={'red'}
             visible={true}
@@ -90,7 +100,7 @@ const LightTest = () => {
             flatShading={true}
           />
         </mesh>
-        <mesh>
+        <mesh castShadow receiveShadow>
           <meshStandardMaterial
             color={'red'}
             visible={true}
@@ -106,7 +116,7 @@ const LightTest = () => {
             metalness={0.5}
           />
         </mesh>
-        <mesh>
+        <mesh castShadow receiveShadow>
           <meshPhysicalMaterial
             color={'#fff'}
             visible={true}
@@ -127,7 +137,7 @@ const LightTest = () => {
             ior={2.33}
           />
         </mesh>
-        <mesh>
+        <mesh castShadow receiveShadow>
           <meshToonMaterial />
         </mesh>
       </group>
