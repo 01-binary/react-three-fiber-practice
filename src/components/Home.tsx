@@ -1,6 +1,6 @@
 import { Canvas } from '@react-three/fiber';
-import ShowRoom from './ShowRoom';
 import { OrbitControls } from '@react-three/drei';
+import ShowRoom from '@components/three/ShowRoom';
 
 const Home = () => {
   return (
